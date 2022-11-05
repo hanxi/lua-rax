@@ -59,10 +59,17 @@
 
 ## 参考
 
-- [lua-rax]: https://github.com/hanxi/lua-rax
-- [基数树]: https://zh.wikipedia.org/wiki/%E5%9F%BA%E6%95%B0%E6%A0%91
-- [wlua]: https://github.com/hanxi/wlua
-- [lua-r3]: https://github.com/hanxi/lua-r3
-- [rax]: https://github.com/antirez/rax
-- [lua-resty-radixtree]: https://github.com/api7/lua-resty-radixtree
+- [lua-rax][lua-rax]
+- [基数树][基数树]
+- [wlua][wlua]
+- [lua-r3][lua-r3]
+- [rax][rax]
+- [lua-resty-radixtree][lua-resty-radixtree]
+
+[lua-rax]: https://github.com/hanxi/lua-rax
+[基数树]: https://zh.wikipedia.org/wiki/%E5%9F%BA%E6%95%B0%E6%A0%91
+[wlua]: https://github.com/hanxi/wlua
+[lua-r3]: https://github.com/hanxi/lua-r3
+[rax]: https://github.com/antirez/rax
+[lua-resty-radixtree]: https://github.com/api7/lua-resty-radixtree
 
