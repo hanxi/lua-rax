@@ -1,6 +1,6 @@
+#include <stdio.h>
 #define LUA_LIB
 
-//#include <stdlib.h>
 #include <string.h>
 #include <lua.h>
 #include <lauxlib.h>
@@ -67,8 +67,8 @@ lrax_find(lua_State *L) {
 
 static int
 lrax_search(lua_State *L) {
-    raxIterator *it = (raxIterator *)lua_touserdata(L, 1);
-    if (it == NULL) {
+    raxIterator *iter = (raxIterator *)lua_touserdata(L, 1);
+    if (iter == NULL) {
         return luaL_error(L, "iter is null.");
     }
 
@@ -78,15 +78,15 @@ lrax_search(lua_State *L) {
         return luaL_error(L, "buf is null.");
     }
 
-    int ret = raxSeek(it, "<=", buf, len);
+    int ret = raxSeek(iter, "<=", buf, len);
     lua_pushboolean(L, ret);
     return 1;
 }
 
 static int
 lrax_pre(lua_State *L) {
-    raxIterator *it = (raxIterator *)lua_touserdata(L, 1);
-    if (it == NULL) {
+    raxIterator *iter = (raxIterator *)lua_touserdata(L, 1);
+    if (iter == NULL) {
         return luaL_error(L, "iter is null.");
     }
 
@@ -96,16 +96,17 @@ lrax_pre(lua_State *L) {
         return luaL_error(L, "buf is null.");
     }
 
-    raxIterator *iter = it;
     int ret;
     while (1) {
-        ret = raxPrev(it);
+        ret = raxPrev(iter);
         if (!ret) {
             lua_pushinteger(L, -1);
             return 1;
         }
 
-        if (iter->key_len > len || memcmp(buf, iter->key, iter->key_len != 0)) {
+        //fprintf(stderr, "it key len: %lu buf len: %lu, key: %.*s\n",
+        //        iter->key_len, len, (int)iter->key_len, iter->key);
+        if (iter->key_len > len || memcmp(buf, iter->key, iter->key_len) != 0) {
             continue;
         }
 
@@ -119,8 +120,8 @@ lrax_pre(lua_State *L) {
 
 static int
 lrax_next(lua_State *L) {
-    raxIterator *it = (raxIterator *)lua_touserdata(L, 1);
-    if (it == NULL) {
+    raxIterator *iter = (raxIterator *)lua_touserdata(L, 1);
+    if (iter == NULL) {
         return luaL_error(L, "iter is null.");
     }
 
@@ -130,7 +131,6 @@ lrax_next(lua_State *L) {
         return luaL_error(L, "buf is null.");
     }
 
-    raxIterator *iter = it;
     int ret = raxNext(iter);
     if (!ret) {
         lua_pushinteger(L, -1);
@@ -149,12 +149,12 @@ lrax_next(lua_State *L) {
 
 static int
 lrax_stop(lua_State *L) {
-    raxIterator *it = (raxIterator *)lua_touserdata(L, 1);
-    if (it == NULL) {
+    raxIterator *iter = (raxIterator *)lua_touserdata(L, 1);
+    if (iter == NULL) {
         return 0;
     }
 
-    raxStop(it);
+    raxStop(iter);
     return 0;
 }
 
@@ -165,12 +165,12 @@ lrax_newit(lua_State *L) {
         return luaL_error(L, "tree is null.");
     }
 
-    raxIterator *it = (raxIterator *)lua_newuserdata(L, sizeof(raxIterator));
-    if (it == NULL) {
+    raxIterator *iter = (raxIterator *)lua_newuserdata(L, sizeof(raxIterator));
+    if (iter == NULL) {
         return 0;
     }
 
-    raxStart(it, r);
+    raxStart(iter, r);
     return 1;
 }
 

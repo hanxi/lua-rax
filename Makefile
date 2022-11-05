@@ -3,6 +3,7 @@ LUA_INCLUDE_DIR ?= /usr/local/include
 LUA_INCLUDE_DIR = ../lua-5.4.4/src
 
 CFLAGS := -O2 -g -Wall -fpic -std=c99 -Wno-pointer-to-int-cast -Wno-int-to-pointer-cast -I$(LUA_INCLUDE_DIR)
+#-DRAX_DEBUG_MSG
 
 C_SO_NAME := rax.so
 LDFLAGS := -shared
