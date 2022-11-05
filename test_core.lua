@@ -12,18 +12,18 @@ local idx = rax_core.find(rtree, "/blog/foo/bar")
 assert(idx == 4)
 
 local function match(path)
-  local ret = rax_core.search(it, path)
-  if not ret then
-    error("search failed.")
-  end
-  while true do
-    local idx = rax_core.pre(it, path)
-    if idx <= 0 then
-      break
+    local ret = rax_core.search(it, path)
+    if not ret then
+        error("search failed.")
     end
-    print(idx)
-    return idx
-  end
+    while true do
+        local idx = rax_core.prev(it, path)
+        if idx <= 0 then
+            break
+        end
+        print(idx)
+        return idx
+    end
 end
 
 local path = "/blog/foo/a/b/c"
