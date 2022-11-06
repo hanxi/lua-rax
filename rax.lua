@@ -244,4 +244,8 @@ function M:match(path, method)
     end
 end
 
+function M:dump()
+    rax_core.dump(self.tree)
+end
+
 return M

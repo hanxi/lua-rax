@@ -54,3 +54,5 @@ test_match("/blog/foo/c/d", "GET", "t7")
 test_match("/blog/foo/gloo", "GET", "t5")
 test_match("/blog/fuck", "GET", nil)
 
+route:dump()
+
