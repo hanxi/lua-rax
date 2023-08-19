@@ -10,8 +10,8 @@ local mt = { __index = M, __gc = gc_free }
 
 local log_info = function () end
 local log_debug = function () end
-local log_info = print
-local log_debug = print
+--local log_info = print
+--local log_debug = print
 
 local _METHOD_GET     = 2
 local _METHOD_POST    = 2 << 1
@@ -166,7 +166,7 @@ function M:_fetch_pat(path)
             res[j] = [=[(.*)]=]
         end
     end
-    local pat = table.concat(res, [[/]])
+    pat = table.concat(res, [[/]])
     self.hash_pattern[path] = {pat, names}
     return pat, names
 end
